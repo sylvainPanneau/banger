@@ -28,38 +28,56 @@ export default function Messages_Body() {
         text: "Oui, j'ai pas vu deux fois",
         date: '2020-01-01',
       },
-      {
-        id: 4,
-        sender : 'Yves',
-        text: 'Oui, j\'ai pas vu deux fois',
-        date: '2020-01-01',
-      },
-      {
-        id: 4,
-        sender : 'Yves',
-        text: 'Oui, j\'ai pas vu deux fois',
-        date: '2020-01-01',
-      },
-      {
-        id: 4,
-        sender : 'Yves',
-        text: 'Oui, j\'ai pas vu deux fois',
-        date: '2020-01-01',
-      },
-      {
-        id: 4,
-        sender : 'Yves',
-        text: 'Oui, j\'ai pas vu deux fois',
-        date: '2020-01-01',
-      },
-      {
-        id: 4,
-        sender : 'Yves',
-        text: 'Oui, j\'ai pas vu deux fois',
-        date: '2020-01-01',
-      },
+      // {
+      //   id: 4,
+      //   sender : 'Yves',
+      //   text: 'Oui, j\'ai pas vu deux fois',
+      //   date: '2020-01-01',
+      // },
+      // {
+      //   id: 4,
+      //   sender : 'Yves',
+      //   text: 'Oui, j\'ai pas vu deux fois',
+      //   date: '2020-01-01',
+      // },
+      // {
+      //   id: 4,
+      //   sender : 'Yves',
+      //   text: 'Oui, j\'ai pas vu deux fois',
+      //   date: '2020-01-01',
+      // },
+      // {
+      //   id: 4,
+      //   sender : 'Yves',
+      //   text: 'Oui, j\'ai pas vu deux fois',
+      //   date: '2020-01-01',
+      // },
+      // {
+      //   id: 4,
+      //   sender : 'Yves',
+      //   text: 'Oui, j\'ai pas vu deux fois',
+      //   date: '2020-01-01',
+      // },
+      // {
+      //   id: 4,
+      //   sender : 'Yves',
+      //   text: 'Oui, j\'ai pas vu deux fois',
+      //   date: '2020-01-01',
+      // },
+      // {
+      //   id: 4,
+      //   sender : 'Yves',
+      //   text: 'Oui, j\'ai pas vu deux fois',
+      //   date: '2020-01-01',
+      // },
     ]);
   }, []);
+
+  useEffect(() => {
+    // scroll to bottom
+    const messagesContainer = document.querySelector('.messages-body');
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }, [messages]);
 
   return (
     <div className="messages-body">
