@@ -8,7 +8,7 @@ export default function Match_unit_messages() {
     <div className="match-unit-messages">
       <Messages_Header />
       <Messages_Body />
-      <Messages_Actions />
+      <Messages_Actions/>
     </div>
   );
 }
