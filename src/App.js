@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       {renderHeader}
-      <Card mode={mode}/>
+      <Card mode={mode} />
       <NavBar />
     </div>
   );
