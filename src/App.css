@@ -1,5 +1,5 @@
-.App {
-  text-align: center;
+*::selection{
+  outline: none;
 }
 
 .App-logo {
@@ -36,3 +36,358 @@
     transform: rotate(360deg);
   }
 }
+
+.App{
+  /* rectangle in the middle of the screen */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 23%;
+  height: 80%;
+  background-color: #f1f1f1;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+  white-space: nowrap;
+  display : flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content : space-between;
+  border-radius: 5px;
+}
+
+.card{
+  /* fit the app container */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  /* everything that is outside disapears */
+  overflow: hidden;
+  position: relative;
+}
+
+.card-body{
+  /* fit the app container */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  left : 0;
+  position : absolute;
+}
+
+.card-picture{
+  /* the picture should fit the card-body by being cropped */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.card-header{
+  /* this container is placed at the left bottom corner */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 30%;
+  height: 23%;
+  background-color: transparent;
+  color: white;
+  padding: 15px;
+  /* roboto */
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.2em;
+  font-weight: bold;
+  /* blocks inside this container are displayed from left to right */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* text is aligned in the center */
+  align-items: center;
+}
+
+.card-age{
+  /* small */
+  font-size: 0.9em;
+  font-weight: lighter;
+}
+
+/* all elements in card-text have a padding */
+.card-header > *{
+  padding: 4px;
+}
+
+.card-footer{
+  /* below card-header */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 90%;
+  height: 9%;
+  background-color: transparent;
+  color: white;
+  padding-left: 6%;
+  padding-top: 6%;
+  padding-bottom: 6%;
+  padding-right: 6%;
+  /* roboto */
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.8em;
+  /* text continues on the line */
+  white-space: initial;
+  text-align: left;
+}
+
+.nav-bar-heart, .nav-bar-delete{
+  /* size */
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  /* shadow */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /* background color */
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.nav-bar-heart{
+  color : rgb(6, 201, 6);
+}
+
+.nav-bar-delete{
+  color : red;
+}
+
+.navbar{
+  /* display in row */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  /* bottom */
+  position: absolute;
+  bottom: -5%;
+}
+
+/* all items in navbar have padding */
+.navbar > *{
+  padding: 10px;
+  margin-left: 15px;
+}
+
+.header{
+  position: absolute;
+  top : -6%;
+  width: 100%;
+  height: 100%;
+}
+
+.header-profile, .header-messages{
+  /* size */
+  width: 20px;
+  height: 20px;
+  color : lightgrey;
+  cursor: pointer;
+}
+
+.header-profile{
+  /* position */
+  position: absolute;
+  top: 0;
+  left : 25%;
+}
+
+.header-messages{
+  /* position */
+  position: absolute;
+  top: 0;
+  right : 25%;
+}
+
+.match-unit{
+  /* this container is placed at the left bottom corner */
+  position: absolute;
+  top: 10%;
+  left: 100%;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  /* roboto */
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.8em;
+  align-items: flex-start;
+}
+
+.match-info-wrapper{
+  display : flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+}
+
+.match-profile-picture{
+  /* fit .match-unit container */
+  width: 40px;
+  height: 40px;
+  /* crop the picture */
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.match-profile-picture > img{
+  /* fit .match-unit container */
+  width: 100%;
+  height: 100%;
+  /* crop the picture */
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.match-not-image{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width : 90%;
+}
+
+.match-name{
+  font-weight: bold;
+  font-size: 1.1em;
+  /* color */
+  color: #505050;
+}
+
+.match-not-image > *{
+  padding: 0;
+  margin : 0;
+  margin-top: 2px;
+}
+
+.match-message-preview{
+  /* font */
+  font-size: 0.7em;
+  font-weight: lighter;
+  /* font color */
+  color: rgb(139, 139, 139);
+  overflow:hidden;
+  white-space:nowrap;
+  display:inline-block;
+  text-overflow:ellipsis;
+  padding-top: 2px;
+  width: calc(90%);
+}
+
+.match-unit-messages{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+.messages-header{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  height: 10%;
+  /* shadow */
+  box-shadow: 0px 0px 3px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%)
+}
+
+.messages-header > *{
+  margin-top: 3%;
+}
+
+.messages-header-back{
+  /* size */
+  /* width: 4%;
+  height: 4%; */
+  color :rgb(230, 115, 115);
+  width: 10%;
+  height: 40%;
+  cursor: pointer;
+}
+
+.messages-profile-picture{
+  /* size */
+  width: 25px;
+  height: 25px;
+  /* crop the picture */
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.messages-actions{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 10%;
+  box-shadow: 0px 0px 3px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%)
+}
+
+.messages-input > *{
+  border : none;
+  /* font */
+  font-size: 0.8em;
+  font-weight: lighter;
+  /* font color */
+  color: rgb(139, 139, 139);
+  /* roboto */
+  font-family: 'Roboto', sans-serif;
+  background-color: transparent;
+}
+
+.messages-input > input{
+  height: 100%;
+  width: 75%;
+}
+
+.messages-input > input:focus{
+  /* highlight borders */
+  outline: none;
+}
+
+.messages-input > input::selection{
+  background-color: rgb(230, 115, 115);
+  color : white;
+}
+
+.messages-input{
+  border : solid 1px rgb(185, 185, 185);
+  border-radius: 20px;
+  overflow: hidden;
+  height: 50%;
+  width: 90%;
+}
+
+.button-send{
+  background-color: #f1f1f1;
+  cursor: pointer;
+  height: 100%;
+  border-radius: 20px;
+}
+
+.button-send:active{
+  transform: scale(0.9);
+}
+
