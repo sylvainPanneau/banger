@@ -6,9 +6,10 @@ import Match_unit_messages from './Match_unit_messages';
 import Prunot from './images/prunot.jpeg';
 
 export default function Match_unit() {
-    return <>
-        <div className="match-unit">
-            {/* <div>
+  return (
+    <>
+      <div className="match-unit">
+        {/* <div>
                 <div className='match-info-wrapper'>
                     <div className="match-profile-picture">
                         <img src={Prunot} alt="profile-picture" />
@@ -22,7 +23,8 @@ export default function Match_unit() {
                     </div>
                 </div>
             </div> */}
-        </div>
-        <Match_unit_messages/>
-    </>;
+      </div>
+      <Match_unit_messages />
+    </>
+  );
 }
