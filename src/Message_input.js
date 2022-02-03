@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function Message_input() {
+  const [inputValue, setInputValue] = useState('');
+
   function handleInputFocus() {
     // add border style to messages-input class
     document.querySelector('.messages-input').style.border =
@@ -14,6 +16,17 @@ export default function Message_input() {
     console.log('blur');
   }
 
+  function resetInputValue(){
+    setInputValue('');
+  }
+
+  const handleKeyPress = (e) => {
+    if (e.keyCode === 13) {
+      resetInputValue();
+    }
+  };
+      
+
   return (
     <div className="messages-input">
       <input
@@ -21,8 +34,11 @@ export default function Message_input() {
         onBlur={handleInputBlur}
         type="text"
         placeholder="Type a message..."
+        value = {inputValue}
+        onKeyPress={handleKeyPress}
+        onChange={e => setInputValue(e.target.value)}
       />
-      <button className="button-send">Send</button>
+      <button onClick={resetInputValue} className="button-send">Send</button>
     </div>
   );
 }

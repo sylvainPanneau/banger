@@ -5,7 +5,24 @@ export default function Card({ mode }) {
   // render card or message app depending on the mode.
   // the mode changes when the user clicks on the message app.
 
-  mode === 'card' ? rightToLeft('match-unit') : leftToRight('card-body');
+  mode === 'card' ? cardUI() : messageUI();
+
+  function cardUI(){
+    rightToLeft('match-unit');
+    // transition .navbar from their position to the bottom.
+    setTimeout(() => {
+      document.getElementsByClassName('navbar')[0].style.bottom = '-100%';
+      document.getElementsByClassName('navbar')[0].style.transition = 'bottom 0.5s';
+    }, 1);
+  }
+  
+  function messageUI(){
+    leftToRight('card-body');
+    setTimeout(() => {
+      document.getElementsByClassName('navbar')[0].style.bottom = '-5%';
+      document.getElementsByClassName('navbar')[0].style.transition = 'bottom 0.5s';
+    }, 1);
+  }
 
   function rightToLeft(className) {
     setTimeout(() => {
