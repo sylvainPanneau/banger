@@ -1,18 +1,22 @@
 // This component is used to represent one match in the match list.
 // It serves as a preview of the messages between the two users.
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Match_unit_messages from './Match_unit_messages';
 import Prunot from './images/prunot.jpeg';
 
-export default function Match_unit() {
+export default function Match_unit({ animation }) {
+  const [mode, setMode] = useState();
+  useEffect(() => {
+    setMode('unit');
+  }, []);
   return (
     <>
-      <div className="match-unit">
-        {/* <div>
-                <div className='match-info-wrapper'>
+      {mode === 'unit' && <div className="match-unit" style={animation}>
+        <div>
+                <div className='match-info-wrapper' onClick={() => setMode('messages')}>
                     <div className="match-profile-picture">
-                        <img src={Prunot} alt="profile-picture" />
+                        <img src={Prunot} alt="profile-picture"/>
                     </div>
                     <div className='match-not-image'>
                         <h3 className="match-name">Prunot</h3>
@@ -22,9 +26,9 @@ export default function Match_unit() {
                         </p>
                     </div>
                 </div>
-            </div> */}
-      </div>
-      <Match_unit_messages />
+            </div>
+      </div>}
+      {mode === 'messages' && <Match_unit_messages animation={animation} setMode={setMode}/>}
     </>
   );
 }

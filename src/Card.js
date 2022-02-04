@@ -2,52 +2,11 @@ import React, { useState, useEffect } from 'react';
 import Messages_app from './Messages_app';
 
 export default function Card({ mode }) {
-  // render card or message app depending on the mode.
-  // the mode changes when the user clicks on the message app.
-
-  mode === 'card' ? cardUI() : messageUI();
-
-  function cardUI(){
-    rightToLeft('match-unit');
-    // transition .navbar from their position to the bottom.
-    setTimeout(() => {
-      document.getElementsByClassName('navbar')[0].style.bottom = '-100%';
-      document.getElementsByClassName('navbar')[0].style.transition = 'bottom 0.5s';
-    }, 1);
-  }
-  
-  function messageUI(){
-    leftToRight('card-body');
-    setTimeout(() => {
-      document.getElementsByClassName('navbar')[0].style.bottom = '-5%';
-      document.getElementsByClassName('navbar')[0].style.transition = 'bottom 0.5s';
-    }, 1);
-  }
-
-  function rightToLeft(className) {
-    setTimeout(() => {
-      document.getElementsByClassName(className)[0].style.transition =
-        'left 0.5s';
-      document.getElementsByClassName(className)[0].style.left = '0';
-      document.getElementsByClassName('card-body')[0].style.transition =
-        'left 0.5s';
-      document.getElementsByClassName('card-body')[0].style.left = '-100%';
-    }, 1);
-  }
-  function leftToRight(className) {
-    setTimeout(() => {
-      document.getElementsByClassName(className)[0].style.transition =
-        'left 0.5s';
-      document.getElementsByClassName(className)[0].style.left = '0';
-      document.getElementsByClassName('match-unit')[0].style.transition =
-        'left 0.5s';
-      document.getElementsByClassName('match-unit')[0].style.left = '100%';
-    }, 1);
-  }
+  const animation = { animation: 'inAnimation 250ms ease-in' };
 
   return (
     <div className="card">
-      <div className="card-body">
+      {mode === 'card' && <div className="card-body" style={animation}>
         <img
           src={require('./images/prunot.jpeg')}
           alt="image"
@@ -62,8 +21,8 @@ export default function Card({ mode }) {
             Un bon gros fils de pute comme on les aime. Tu veux tamtam ?
           </p>
         </div>
-      </div>
-      <Messages_app className="messages-app" />
+      </div>}
+      {mode === 'message' && <Messages_app animation={animation}/>}
     </div>
   );
 }
