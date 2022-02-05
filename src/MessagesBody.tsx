@@ -75,13 +75,7 @@ export default function MessagesBody() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    async function fillFakeMessages() {
-      for (const m of messagesSample) {
-        await new Promise(r => setTimeout(r, 500)); //wait 500ms between each messages
-        setMessages(old => [...old, m]);
-      }
-    }
-    fillFakeMessages();
+    setMessages(messagesSample);
   }, []);
 
   useEffect(() => {

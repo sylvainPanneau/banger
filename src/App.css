@@ -526,3 +526,67 @@ body {
     visibility: visible;
   }
 }
+
+/* login page */
+
+body, html, #root{
+  width: 100%;
+  height: 100%;
+}
+
+.login-page,
+.login-page-input,
+.login-page-input-form
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  background-color: #1f2028;
+  /* shadow */
+  box-shadow: 0px 0px 3px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+}
+
+.login-page-input-form{
+  gap: 15px;
+}
+
+.login-page-input{
+  height: 50%;
+  width: 50%;
+}
+
+.login-page-input-form-input{
+  height: 13%;
+  width: 50%;
+  padding : 10px;
+}
+
+.login-page-input-form-input,
+.login-page-input-form-button
+{
+  border: 0px;
+  border-radius: 8px;
+  font-size: 0.8em;
+  font-weight: lighter;
+  color: rgb(139, 139, 139);
+  font-family: 'Roboto', sans-serif;
+  background-color: #2e3039;
+}
+
+.login-page-input-form-input:focus{
+  outline : solid 1px rgb(255, 231, 19);
+}
+
+.login-page-input-form-input:hover{
+  outline : solid 1px rgb(255, 231, 19);
+  transition : outline 0.1s ease-in-out;
+}
+
+.login-page-input-form-button{
+  border : 0px;
+  background-color: transparent;
+  cursor: pointer;
+}
