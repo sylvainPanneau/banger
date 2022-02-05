@@ -1,6 +1,6 @@
 import React from 'react';
-import { ReactComponent as Heart } from './images/svg/heart-regular.svg';
-import { ReactComponent as Delete } from './images/svg/times-solid.svg';
+import Heart from './images/svg/heart-regular.svg?component';
+import Delete from './images/svg/times-solid.svg?component';
 
 export default function NavBar() {
   return (
