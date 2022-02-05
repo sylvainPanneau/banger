@@ -12,12 +12,10 @@ export default function MessageInput() {
     'messages-input-blurred': !inputFocused,
   });
 
-  function resetInputValue() {
-    setInputValue('');
-  }
+  const resetInputValue = () => setInputValue('');
 
-  const handleKeyPress = e => {
-    if (e.keyCode === 13) {
+  const handleKeyPress: React.KeyboardEventHandler<HTMLInputElement> = e => {
+    if (e.key === 'Enter') {
       resetInputValue();
     }
   };
