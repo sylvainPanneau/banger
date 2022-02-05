@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import Messages_app from './Messages_app';
+import MessagesApp from './MessagesApp';
 
-export default function Card({ mode }) {
+import DamnLookinFineProfilePic from './images/prunot.jpeg';
+
+type CardProps = {
+  mode: string;
+};
+
+export default function Card({ mode }: CardProps) {
   const animation = { animation: 'inAnimation 250ms ease-in' };
 
   return (
@@ -9,7 +15,7 @@ export default function Card({ mode }) {
       {mode === 'card' && (
         <div className="card-body" style={animation}>
           <img
-            src={require('./images/prunot.jpeg')}
+            src={DamnLookinFineProfilePic}
             alt="image"
             className="card-picture"
           />
@@ -24,7 +30,7 @@ export default function Card({ mode }) {
           </div>
         </div>
       )}
-      {mode === 'message' && <Messages_app animation={animation} />}
+      {mode === 'message' && <MessagesApp animation={animation} />}
     </div>
   );
 }
