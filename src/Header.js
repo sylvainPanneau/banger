@@ -7,6 +7,7 @@ export default function Header() {
   function handleMessageClick() {
     mode === 'card' ? setMode('message') : setMode('card');
   }
+
   return {
     mode,
     renderHeader: (
