@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       {renderHeader}
       <Card mode={mode} />
-      {mode === 'card' && <NavBar />}
+      {mode === 'card' && <NavBar/>}
     </div>
   );
 }
