@@ -2,17 +2,17 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../setupSupabase';
 
 export function useUsers() {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<any[]>([]);
   useEffect(() => {
     supabase
       .from('users')
       .select('*')
-      .then(u => setUsers(u.data));
+      .then(u => setUsers(u.data || []));
   }, []);
   return users;
 }
 
-export function useLike() {
+export function useLike(): (user: { id: number; likes: number }) => void {
   return user => {
     console.debug({ user });
     if (!user.id) {

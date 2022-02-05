@@ -1,7 +1,10 @@
-import { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { supabase } from '../setupSupabase';
 
-const AuthContext = createContext();
+const AuthContext = createContext<
+  | { user: any; authenticate: (email: string) => void; logout: () => void }
+  | undefined
+>(undefined);
 
 /**
  * To use inside the auth provider component
@@ -21,16 +24,16 @@ export function useLogin() {
  * A provider to make auth related stuff available
  * to all children
  */
-export function AuthProvider(props) {
-  const [user, setUser] = useState(null);
+export function AuthProvider(props: { children: JSX.Element }) {
+  const [user, setUser] = useState<any | null>(null);
 
   supabase.auth.onAuthStateChange((event, session) => {
     if (event === 'SIGNED_IN') {
-      setUser(session.user);
+      setUser(session?.user);
     }
   });
 
-  const authenticate = email => supabase.auth.signIn({ email });
+  const authenticate = (email: string) => supabase.auth.signIn({ email });
 
   const logout = () => {
     supabase.auth.signOut();
