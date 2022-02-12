@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Auth from './Auth';
 import { supabase } from './setupSupabase';
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
+  const [sent, setSent] = useState(false);
 
   function keyListener(e: KeyboardEvent) {
     if (e.key === 'Enter') {
+      console.log(email);
       const btn = document.getElementsByClassName('btn')[0];
       btn.classList.add('btn-hover');
       setTimeout(() => {
@@ -22,14 +23,20 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      console.log('email', email);
       setLoading(true);
       const { error } = await supabase.auth.signIn({ email });
-      if (error) alert(error.message);
+      if (error) {
+        alert(error.message);
+      } else {
+        setSent(true);
+      }
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
+      setTimeout(() => {
+        setSent(false);
+      }, 3000);
     }
   };
 
@@ -44,31 +51,42 @@ export default function Login() {
     <div className="login-page">
       <div className="login-page-header"></div>
       <div className="login-page-input">
-        <div className="login-page-input-form">
-        <input
-              id="email"
-              className="login-page-input-form-input"
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              onKeyPress={e => {
-                if (e.key === 'Enter') {
-                  handleLogin();
-                }
-              }}
-            />
-          <button className="login-page-input-form-button">
-            <a
-              href="#"
-              className="btn btn-white btn-animate"
-              onSubmit={handleLogin}
-              onClick={handleLogin}
-            >
-              Email a login link
-            </a>
+        <form className="login-page-input-form" autoComplete="new-password">
+          <input
+            autoComplete="off"
+            id="email"
+            className="login-page-input-form-input"
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            onKeyPress={e => {
+              if (e.key === 'Enter') {
+                handleLogin();
+              }
+            }}
+          />
+          <input
+            id="the-only-purpose-of-this-input-is-to-prevent-autofill..."
+            type="text"
+            autoComplete="on"
+            value=""
+            style={{
+              display: 'none',
+              opacity: 0,
+              position: 'absolute',
+              left: '-100000px',
+            }}
+            readOnly={true}
+          />
+          <button
+            className="login-page-input-form-button btn btn-white btn-animate"
+            onSubmit={handleLogin}
+            onClick={handleLogin}
+          >
+            {sent ? 'Check your inbox 😊' : 'Email login link'}
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );
