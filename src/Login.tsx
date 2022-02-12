@@ -26,7 +26,7 @@ export default function Login() {
       setLoading(true);
       const { error } = await supabase.auth.signIn({ email });
       if (error) {
-        alert(error.message);
+        console.log(error);
       } else {
         setSent(true);
       }
