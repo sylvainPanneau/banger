@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { supabase } from './setupSupabase';
 
 export default function Login() {
-  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [sent, setSent] = useState(false);
 
@@ -23,7 +22,6 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      setLoading(true);
       const { error } = await supabase.auth.signIn({ email });
       if (error) {
         console.log(error);
@@ -33,7 +31,6 @@ export default function Login() {
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
       setTimeout(() => {
         setSent(false);
       }, 3000);
