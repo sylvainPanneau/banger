@@ -1,12 +1,12 @@
 .messages-input {
-  border-width: 1px;
+  border-width: 2px;
   border-style: solid;
 }
 
 .messages-input-blurred {
-  border-color: rgb(230, 230, 230);
+  border-color: rgb(209, 209, 209);
 }
 
 .messages-input-focused {
-  border-color: rgb(230, 115, 115);
+  border-color: #1f2028;
 }
