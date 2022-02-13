@@ -317,7 +317,7 @@ body {
 }
 
 .message-other > .message-text {
-  color: rgb(143, 143, 143);
+  color: rgb(114, 114, 114);
   font-size: 0.8em;
   /* roboto */
   /* font-family: 'Roboto', sans-serif; */
@@ -340,14 +340,14 @@ body {
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
-  background-color: #1ebdff;
+  background-color: #7e8cbe;
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
   border-top-right-radius: 15px;
 }
 
 .message-me > .message-text {
-  color: rgb(255, 255, 255);
+  color: rgb(59, 59, 59);
   font-size: 0.8em;
   /* roboto */
   /* font-family: 'Roboto', sans-serif; */
