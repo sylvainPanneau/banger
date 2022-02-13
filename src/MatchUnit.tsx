@@ -18,7 +18,7 @@ export default function MatchUnit({ animation }: MatchUnitProps) {
     <>
       {mode === 'unit' && (
         <div className="match-unit" style={animation}>
-          <div>
+          <div className='match-info-wrapper-wrapper'>
             <div
               className="match-info-wrapper"
               onClick={() => setMode('messages')}
@@ -29,6 +29,7 @@ export default function MatchUnit({ animation }: MatchUnitProps) {
               <div className="match-not-image">
                 <h3 className="match-name">Prunot</h3>
                 <p className="match-message-preview">
+                  Un bon gros fils de pute comme on les aime. Tu veux tamtam?
                   Un bon gros fils de pute comme on les aime. Tu veux tamtam?
                 </p>
               </div>
