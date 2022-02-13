@@ -18,7 +18,7 @@ function App() {
   }, []);
 
 
-  return (    
+  return (
     <>
       {!session ? <Login /> : <div className="App">
       {renderHeader}
