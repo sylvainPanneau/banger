@@ -19,14 +19,12 @@ export default function Card({ mode }: CardProps) {
             alt="image"
             className="card-picture"
           />
-          <div className="card-header">
-            <h3 className="card-title">Prunot</h3>
-            <h3 className="card-age">39</h3>
-          </div>
-          <div className="card-footer">
-            <p className="card-description">
-              Un bon gros fils de pute comme on les aime. Tu veux tamtam ?
-            </p>
+          <div className="card-info">
+            <div className="card-info-main">
+              <div className="card-name">Prunot</div>
+              <div className="card-age">52</div>
+            </div>
+            <div className="card-desc">Un bon gars finalement, je l'ai un peu vite jugé...</div>
           </div>
         </div>
       )}
