@@ -1,6 +1,7 @@
 body {
   overflow: hidden;
   font-family: 'Roboto', sans-serif;
+  background-color: #1f2028;
 }
 
 *::selection {
@@ -43,22 +44,15 @@ body {
 }
 
 .App {
-  /* rectangle in the middle of the screen */
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 23%;
   height: 80%;
-  background-color: #f1f1f1;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   text-align: center;
   white-space: nowrap;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: space-between;
   border-radius: 5px;
+  gap : 20px;
 }
 
 .card {
@@ -72,7 +66,8 @@ body {
   /* everything that is outside disapears */
   overflow: hidden;
   position: relative;
-  border-radius: 5px;
+  border-radius: 30px;
+  box-shadow: -7px 13px 9px 0px rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
 }
 
 .card-body {
@@ -155,13 +150,9 @@ body {
 .nav-bar-heart,
 .nav-bar-delete {
   /* size */
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  /* shadow */
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  /* background color */
-  background-color: #f1f1f1;
+  width: 45px;
+  height: 45px;
+  fill : #c0c0c0;
   cursor: pointer;
 }
 
@@ -177,11 +168,9 @@ body {
   /* display in row */
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-  /* bottom */
-  position: absolute;
-  bottom: -5%;
+  /* padding-top: 15px; */
 }
 
 /* all items in navbar have padding */
@@ -191,33 +180,22 @@ body {
 }
 
 .header {
-  position: absolute;
-  top: -6%;
-  width: 100%;
-  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  /* padding-bottom: 15px; */
 }
 
 .header-profile,
-.header-messages {
-  /* size */
-  width: 20px;
-  height: 20px;
-  color: lightgrey;
+.header-messages,
+.header-logout {
+  width: 45px;
+  height: 45px;
+  fill: #c0c0c0;
   cursor: pointer;
-}
-
-.header-profile {
-  /* position */
-  position: absolute;
-  top: 0;
-  left: 25%;
-}
-
-.header-messages {
-  /* position */
-  position: absolute;
-  top: 0;
-  right: 25%;
+  border-radius: 50%;
+  transition: fill 0.2s;
 }
 
 .match-unit {
@@ -535,6 +513,10 @@ html,
 #root {
   width: 100%;
   height: 100%;
+  display : flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .login-page,

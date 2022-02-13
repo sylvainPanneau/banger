@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import Profile from './images/svg/user-solid.svg?component';
-import Messages from './images/svg/comment-solid.svg?component';
+import Profile from './images/svg/account_circle_black_24dp.svg?component';
+import Messages from './images/svg/chat_black_24dp.svg?component';
+import Logout from './images/svg/logout_black_24dp.svg?component';
 import { supabase } from './setupSupabase';
 
 export default function Header() {
@@ -14,8 +15,8 @@ export default function Header() {
     renderHeader: (
       <div className="header">
         <Profile className="header-profile" />
+        <Logout className="header-logout" onClick={() => supabase.auth.signOut()}/>
         <Messages onClick={handleMessageClick} className="header-messages" />
-        <button className="logout-btn" onClick={() => supabase.auth.signOut()}>Logout</button>
       </div>
     ),
   };

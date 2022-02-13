@@ -48,7 +48,7 @@ export default function Login() {
     <div className="login-page">
       <div className="login-page-header"></div>
       <div className="login-page-input">
-        <form className="login-page-input-form" autoComplete="new-password">
+        <div className="login-page-input-form">
           <input
             autoComplete="off"
             id="email"
@@ -83,7 +83,7 @@ export default function Login() {
           >
             {sent ? 'Check your inbox 😊' : 'Email login link'}
           </button>
-        </form>
+        </div>
       </div>
     </div>
   );
