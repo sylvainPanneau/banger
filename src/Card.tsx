@@ -5,9 +5,10 @@ import DamnLookinFineProfilePic from './images/prunot.jpeg';
 
 type CardProps = {
   mode: string;
+  userId: string;
 };
 
-export default function Card({ mode }: CardProps) {
+export default function Card({ mode, userId }: CardProps) {
   const animation = { animation: 'inAnimation 250ms ease-in' };
 
   return (
@@ -24,11 +25,15 @@ export default function Card({ mode }: CardProps) {
               <div className="card-name">Prunot</div>
               <div className="card-age">52</div>
             </div>
-            <div className="card-desc">Un bon gars finalement, je l'ai un peu vite jugé...</div>
+            <div className="card-desc">
+              Un bon gars finalement, je l'ai un peu vite jugé...
+            </div>
           </div>
         </div>
       )}
-      {mode === 'message' && <MessagesApp animation={animation} />}
+      {mode === 'message' && (
+        <MessagesApp animation={animation} userId={userId} />
+      )}
     </div>
   );
 }

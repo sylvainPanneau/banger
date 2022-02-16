@@ -22,7 +22,7 @@ function App() {
     <>
       {!session ? <Login /> : <div className="App">
       {renderHeader}
-      <Card mode={mode} />
+      <Card mode={mode} userId={supabase.auth.user()?.id as string} />
       {mode === 'card' && <NavBar />}
     </div>}
     </>
