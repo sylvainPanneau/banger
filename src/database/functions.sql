@@ -13,10 +13,12 @@ CREATE OR REPLACE FUNCTION f_getMatchNotSelf(userId varchar) RETURNS table(id uu
         $BODY$
 LANGUAGE sql security definer;
 
-CREATE OR REPLACE FUNCTION f_getMatchInfo(selfId varchar) RETURNS table(id uuid, name text, description text) AS
+CREATE OR REPLACE FUNCTION f_getMatchInfo(selfId varchar) RETURNS table(id uuid, name text, description text, photo text) 
+AS
         $BODY$
-                select "id", "name", "description" from public.users 
-                where "id" in (select * from f_getmatchnotself(selfId));
+                select public.users.id, "name", "description", "path" from public.users
+                join photos on public.users.id = photos.user
+                where public.users.id in (select * from f_getmatchnotself(selfId));
         $BODY$
 LANGUAGE sql security definer;
 

@@ -3,8 +3,6 @@
 
 import React, { useState, useEffect, CSSProperties } from 'react';
 import MatchUnitMessages from './MathUnitMessage';
-import Prunot from './images/prunot.jpeg';
-import { supabase } from './setupSupabase';
 import { v4 as uuidv4 } from 'uuid';
 
 type MatchUnitProps = {
@@ -13,7 +11,11 @@ type MatchUnitProps = {
   matches: Array<any>;
 };
 
-export default function MatchUnit({ animation, userId, matches }: MatchUnitProps) {
+export default function MatchUnit({
+  animation,
+  userId,
+  matches,
+}: MatchUnitProps) {
   const [mode, setMode] = useState<string>('');
 
   useEffect(() => {
@@ -29,14 +31,16 @@ export default function MatchUnit({ animation, userId, matches }: MatchUnitProps
               className="match-info-wrapper"
               onClick={() => setMode('messages')}
             >
-              <div className="match-profile-picture">
-                <img src={Prunot} alt="profile-picture" />
-              </div>
               {matches.map(match => (
-                <div className="match-not-image" key={uuidv4()}>
-                  <h3 className="match-name">{match.name}</h3>
-                  <p className="match-message-preview">{match.description}</p>
-                </div>
+                <React.Fragment key={uuidv4()}>
+                  <div className="match-profile-picture">
+                    <img src={match.photo} alt="profile-picture" />
+                  </div>
+                  <div className="match-not-image" key={uuidv4()}>
+                    <h3 className="match-name">{match.name}</h3>
+                    <p className="match-message-preview">{match.description}</p>
+                  </div>
+                </React.Fragment>
               ))}
             </div>
           </div>
