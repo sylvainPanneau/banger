@@ -29,11 +29,14 @@ function App() {
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session as SetStateAction<null>);
     });
-    setUserId(supabase.auth.user()?.id as string);
   }, []);
 
   useEffect(() => {
-    if (userId !== '') {
+    if(session) setUserId(supabase.auth.user()?.id as string);
+  }, [session]);
+
+  useEffect(() => {
+    if (userId !== '' && userId !== undefined) {
       getMatch();
       const matchSubscriptionUserA = supabase
         .from(`match:userA=eq.${userId}`)
