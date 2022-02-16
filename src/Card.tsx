@@ -6,10 +6,15 @@ import DamnLookinFineProfilePic from './images/prunot.jpeg';
 type CardProps = {
   mode: string;
   userId: string;
+  matches : Array<any>;
 };
 
-export default function Card({ mode, userId }: CardProps) {
+export default function Card({ mode, userId, matches }: CardProps) {
   const animation = { animation: 'inAnimation 250ms ease-in' };
+
+  useEffect(() => {
+    console.log('in card: ',  matches);
+  }, []);
 
   return (
     <div className="card">
@@ -32,7 +37,7 @@ export default function Card({ mode, userId }: CardProps) {
         </div>
       )}
       {mode === 'message' && (
-        <MessagesApp animation={animation} userId={userId} />
+        <MessagesApp animation={animation} userId={userId} matches={matches} />
       )}
     </div>
   );
