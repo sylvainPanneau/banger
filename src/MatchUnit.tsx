@@ -20,10 +20,6 @@ export default function MatchUnit({ animation, userId, matches }: MatchUnitProps
     setMode('unit');
   }, []);
 
-  useEffect(() => {
-    console.log(matches);
-  }, [matches]);
-
   return (
     <>
       {mode === 'unit' && (

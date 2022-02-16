@@ -12,10 +12,6 @@ type CardProps = {
 export default function Card({ mode, userId, matches }: CardProps) {
   const animation = { animation: 'inAnimation 250ms ease-in' };
 
-  useEffect(() => {
-    console.log('in card: ',  matches);
-  }, []);
-
   return (
     <div className="card">
       {mode === 'card' && (

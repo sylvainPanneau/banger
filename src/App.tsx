@@ -19,7 +19,6 @@ function App() {
         selfid: userId,
       });
       setMatches(data as Array<any>);
-      console.log('data', data);
     } catch (error) {
       console.log(error);
     }
