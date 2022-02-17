@@ -5,11 +5,10 @@ import DamnLookinFineProfilePic from './images/prunot.jpeg';
 
 type CardProps = {
   mode: string;
-  userId: string;
   matches : Array<any>;
 };
 
-export default function Card({ mode, userId, matches }: CardProps) {
+export default function Card({ mode, matches }: CardProps) {
   const animation = { animation: 'inAnimation 250ms ease-in' };
 
   return (
@@ -33,7 +32,7 @@ export default function Card({ mode, userId, matches }: CardProps) {
         </div>
       )}
       {mode === 'message' && (
-        <MessagesApp animation={animation} userId={userId} matches={matches} />
+        <MessagesApp animation={animation} matches={matches} />
       )}
     </div>
   );

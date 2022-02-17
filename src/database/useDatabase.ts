@@ -42,23 +42,28 @@ export function useMatches(userId: string) {
   useEffect(() => {
     if (userId !== '' && userId !== undefined) {
       getMatch();
-      const matchSubscriptionUserA = supabase
+      const matchDeleteUserA = supabase
         .from(`match:userA=eq.${userId}`)
         .on('*', payload => {
-          console.log('changed', payload);
+          setMatches([[payload.new]]);
+          console.log(payload);
         })
         .subscribe();
 
-      const matchSubscriptionUserB = supabase
+      const matchDeleteUserB = supabase
         .from(`match:userB=eq.${userId}`)
         .on('*', payload => {
-          console.log('changed', payload);
+          setMatches([[payload.new]]);
+          console.log(payload);
         })
         .subscribe();
-      return () => {
-        supabase.removeSubscription(matchSubscriptionUserA);
-        supabase.removeSubscription(matchSubscriptionUserB);
-      };
+
+      const matchInsert = supabase
+        .from(`users:id=eq.${userId}`)
+        .on('UPDATE', payload => {
+          getMatch();
+        })
+        .subscribe(); 
     }
   }, [userId]);
 

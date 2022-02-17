@@ -7,13 +7,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 type MatchUnitProps = {
   animation: CSSProperties;
-  userId: string;
   matches: Array<any>;
 };
 
 export default function MatchUnit({
   animation,
-  userId,
   matches,
 }: MatchUnitProps) {
   const [mode, setMode] = useState<string>('');
@@ -33,10 +31,12 @@ export default function MatchUnit({
             >
               {matches.map(match => (
                 <React.Fragment key={uuidv4()}>
-                  <div className="match-profile-picture">
-                    <img src={match.photo} alt="profile-picture" />
-                  </div>
-                  <div className="match-not-image" key={uuidv4()}>
+                  {match.photo && (
+                    <div className="match-profile-picture">
+                      <img src={match.photo} alt="profile-picture" />
+                    </div>
+                  )}
+                  <div className="match-not-image">
                     <h3 className="match-name">{match.name}</h3>
                     <p className="match-message-preview">{match.description}</p>
                   </div>
