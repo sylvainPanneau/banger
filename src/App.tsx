@@ -4,9 +4,13 @@ import NavBar from './NavBar';
 import Header from './Header';
 import Login from './Login';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useSession, useUserId, useMatches } from './database/useDatabase';
+import {
+  useSession,
+  useUserId,
+  useMatches,
+  useMessages,
+} from './database/useDatabase';
 import { Session } from '@supabase/supabase-js';
-
 
 function App() {
   const { mode, renderHeader } = Header();
@@ -21,7 +25,10 @@ function App() {
       ) : (
         <div className="App">
           {renderHeader}
-          <Card mode={mode} matches={matches as Array<any>} />
+          <Card
+            mode={mode}
+            matches={matches as Array<any>}
+          />
           {mode === 'card' && <NavBar />}
         </div>
       )}

@@ -15,10 +15,20 @@ export default function MatchUnit({
   matches,
 }: MatchUnitProps) {
   const [mode, setMode] = useState<string>('');
+  const [selectedMatch, setSelectedMatch] = useState<any>(null);
 
   useEffect(() => {
     setMode('unit');
   }, []);
+
+  function handleClick(matchId: string) {
+    setMode('messages');
+    setSelectedMatch(matchId);
+  }
+
+  useEffect(() => {
+    console.log("selectedMatch: ", selectedMatch);
+  }, [selectedMatch]);
 
   return (
     <>
@@ -27,16 +37,15 @@ export default function MatchUnit({
           <div className="match-info-wrapper-wrapper">
             <div
               className="match-info-wrapper"
-              onClick={() => setMode('messages')}
             >
               {matches.map(match => (
                 <React.Fragment key={uuidv4()}>
                   {match.photo && (
-                    <div className="match-profile-picture">
+                    <div className="match-profile-picture" onClick={() => handleClick(match.id)}>
                       <img src={match.photo} alt="profile-picture" />
                     </div>
                   )}
-                  <div className="match-not-image">
+                  <div className="match-not-image" onClick={()=>handleClick(match.id)}>
                     <h3 className="match-name">{match.name}</h3>
                     <p className="match-message-preview">{match.description}</p>
                   </div>
@@ -47,7 +56,10 @@ export default function MatchUnit({
         </div>
       )}
       {mode === 'messages' && (
-        <MatchUnitMessages animation={animation} setMode={setMode} />
+        <MatchUnitMessages
+          animation={animation}
+          setMode={setMode}
+          matchId={selectedMatch as string}/>
       )}
     </>
   );

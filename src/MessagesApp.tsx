@@ -6,6 +6,14 @@ type MessagesAppProps = {
   matches: Array<any>;
 };
 
-export default function MessagesApp({ animation, matches }: MessagesAppProps) {
-  return <MatchUnit animation={animation} matches={matches} />;
+export default function MessagesApp({
+  animation,
+  matches,
+}: MessagesAppProps) {
+  return (
+    <MatchUnit
+      animation={animation}
+      matches={matches}
+    />
+  );
 }

@@ -1,5 +1,5 @@
 import { Session } from '@supabase/supabase-js';
-import React, { SetStateAction, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { supabase } from '../setupSupabase';
 
 export function useSession() {
@@ -29,14 +29,10 @@ export function useMatches(userId: string) {
   const [matches, setMatches] = useState<Array<any>>([]);
 
   const getMatch = async () => {
-    try {
-      const { data, error } = await supabase.rpc('f_getmatchinfo', {
-        selfid: userId,
-      });
-      setMatches(data as Array<any>);
-    } catch (error) {
-      console.log(error);
-    }
+    const { data, error } = await supabase.rpc('f_getmatchinfo', {
+      selfid: userId,
+    });
+    setMatches(data as Array<any>);
   };
 
   useEffect(() => {
@@ -45,7 +41,12 @@ export function useMatches(userId: string) {
       const matchDeleteUserA = supabase
         .from(`match:userA=eq.${userId}`)
         .on('*', payload => {
-          setMatches([[payload.new]]);
+          const newMatches = matches.filter(
+            match =>
+              match.userA !== payload.old.userA &&
+              match.userB !== payload.old.userB
+          );
+          setMatches(newMatches);
           console.log(payload);
         })
         .subscribe();
@@ -53,19 +54,101 @@ export function useMatches(userId: string) {
       const matchDeleteUserB = supabase
         .from(`match:userB=eq.${userId}`)
         .on('*', payload => {
-          setMatches([[payload.new]]);
+          const newMatches = matches.filter(
+            match =>
+              match.userA !== payload.old.userA &&
+              match.userB !== payload.old.userB
+          );
+          setMatches(newMatches);
           console.log(payload);
         })
         .subscribe();
 
       const matchInsert = supabase
-        .from(`users:id=eq.${userId}`)
+        .from(`userNotifiedMatch:id=eq.${userId}`)
         .on('UPDATE', payload => {
           getMatch();
         })
-        .subscribe(); 
+        .subscribe();
     }
   }, [userId]);
 
   return [matches, setMatches];
+}
+
+export function useMessages(userId: string, matchId: string) {
+  const [messages, setMessages] = useState<Array<any>>([]);
+  const [initialLength, setInitialLength] = useState<number>(0);
+
+  useEffect(() => {
+    if (userId !== '' && userId !== undefined) {
+      getMessages();
+    }
+  }, [userId]);
+
+  useEffect(() => {
+    if (messages.length > initialLength) {
+      insertMessages(messages[messages.length - 1]);
+    }
+    const messageDeleteOrigin = supabase
+      .from(`interaction:origin=eq.${userId}`)
+      .on('DELETE', payload => {
+        const newMessages = messages.filter(
+          message => message.id !== payload.old.id
+        );
+        setMessages(newMessages);
+      })
+      .subscribe();
+
+    const messageDeleteDestination = supabase
+      .from(`interaction:destination=eq.${userId}`)
+      .on('DELETE', payload => {
+        const newMessages = messages.filter(
+          message => message.id !== payload.old.id
+        );
+        setMessages(newMessages);
+      })
+      .subscribe();
+
+    const messageInsert = supabase
+      .from(`userNotifiedMessage:id=eq.${userId}`)
+      .on('UPDATE', payload => {
+        getLastMessage();
+      })
+      .subscribe();
+  }, [messages]);
+
+  const insertMessages = async (mess: any) => {
+    const { data, error } = await supabase.from('interaction').insert([
+      {
+        origin: supabase.auth.user()?.id as string,
+        destination: mess.destination,
+        message: mess.message,
+      },
+    ]);
+  };
+
+  const getMessages = async () => {
+    const { data, error } = await supabase.rpc('f_getmessages', {
+      userid: userId,
+      matchid: matchId,
+    });
+    if (data) {
+      setInitialLength(data?.length);
+    }
+    console.log(data);
+    setMessages(data as Array<any>);
+  };
+
+  const getLastMessage = async () => {
+    const { data, error } = await supabase.rpc('f_getlastmessage', {
+      userid: userId,
+      matchid: matchId,
+    });
+    const old = [...messages];
+    old.push(data);
+    setMessages(old);
+  };
+
+  return [messages, setMessages];
 }

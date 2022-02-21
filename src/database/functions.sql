@@ -5,6 +5,32 @@ CREATE OR REPLACE FUNCTION f_getMatch(userId varchar) RETURNS table(a uuid, b uu
         $BODY$
 LANGUAGE sql security definer;
 
+CREATE OR REPLACE FUNCTION f_getMessages(userId varchar, matchId varchar) 
+RETURNS table(id uuid, origin uuid, destination uuid, message text, created_at timestamptz) 
+AS
+        $BODY$
+                select "id", "origin", "destination", "message", "created_at" from interaction
+                where (("origin" = cast(userId as uuid) and "destination" = cast(matchId as uuid))
+                        or
+                        ("origin" = cast(matchId as uuid) and "destination" = cast(userId as uuid))
+                )
+                order by "created_at" asc;
+        $BODY$
+LANGUAGE sql security definer;
+
+CREATE OR REPLACE FUNCTION f_getLastMessage(userId varchar, matchId varchar)
+RETURNS table(id uuid, origin uuid, destination uuid, message text, created_at timestamptz) 
+AS
+        $BODY$
+                select "id", "origin", "destination", "message", "created_at" from interaction
+                where (("origin" = cast(userId as uuid) and "destination" = cast(matchId as uuid))
+                        or
+                        ("origin" = cast(matchId as uuid) and "destination" = cast(userId as uuid))
+                )
+                order by "created_at" desc limit 1;
+        $BODY$
+LANGUAGE sql security definer;
+
 CREATE OR REPLACE FUNCTION f_getMatchNotSelf(userId varchar) RETURNS table(id uuid) AS
         $BODY$
                 select "a" from f_getmatch(userId) where "a" != cast(userId as uuid)
