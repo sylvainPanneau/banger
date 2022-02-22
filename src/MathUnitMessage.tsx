@@ -21,7 +21,7 @@ export default function MatchUnitMessages({
     <div className="match-unit-messages" style={animation}>
       <MessageHeader setMode={setMode} />
       <MessagesBody messages={messages as any} />
-      <MessagesActions messages={messages as any} setMessages={setMessages as any} />
+      <MessagesActions messages={messages as Array<any>} setMessages={setMessages as Function} />
     </div>
   );
 }
