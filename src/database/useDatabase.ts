@@ -81,6 +81,13 @@ export function useMessages(userId: string, matchId: string) {
 
   useEffect(() => {
     if (userId !== '' && userId !== undefined) {
+      const localData = localStorage.getItem('messages');
+      if (localData) {
+        const localMessages = JSON.parse(localData);
+        if (localMessages.length > 0) {
+          setMessages(localMessages);
+        }
+      }
       const getMessages = async () => {
         const { data, error } = await supabase.rpc('f_getmessages', {
           userid: userId,
@@ -126,7 +133,9 @@ export function useMessages(userId: string, matchId: string) {
         }
       })
       .subscribe();
+    localStorage.setItem('messages', JSON.stringify(messages));
   }, [messages]);
 
   return [messages, setMessages];
 }
+
