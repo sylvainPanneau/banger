@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './MessageInput.css';
 import classNames from 'classnames';
 import { supabase } from './setupSupabase';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function MessageInput({
   setMessages,
-  messages
+  messages,
+  matchId,
 }: {
   setMessages: Function;
   messages: Array<any>;
+  matchId: string;
 }) {
   const [inputValue, setInputValue] = useState('');
   const [inputFocused, setInputFocused] = useState(false);
@@ -21,13 +24,23 @@ export default function MessageInput({
 
   const resetInputValue = () => setInputValue('');
 
-  function handleButton() {
-    setMessages((prevMessages: any) => [
-      ...prevMessages,
+  async function handleButton() {
+    const id = uuidv4();
+    setMessages([
+      ...messages,
       {
-        origin: supabase.auth.user()?.id,
-        destination: messages[0].destination,
-        message: inputValue
+        id: id,
+        origin: supabase.auth.user()?.id as string,
+        destination: matchId,
+        message: inputValue,
+      },
+    ])
+    const { data, error } = await supabase.from('interaction').insert([
+      {
+        id: id,
+        origin: supabase.auth.user()?.id as string,
+        destination: matchId,
+        message: inputValue,
       },
     ]);
     resetInputValue();

@@ -78,21 +78,27 @@ export function useMatches(userId: string) {
 
 export function useMessages(userId: string, matchId: string) {
   const [messages, setMessages] = useState<Array<any>>([]);
-  const [initialLength, setInitialLength] = useState<number>(0);
 
   useEffect(() => {
     if (userId !== '' && userId !== undefined) {
+      const getMessages = async () => {
+        const { data, error } = await supabase.rpc('f_getmessages', {
+          userid: userId,
+          matchid: matchId,
+        });
+        console.log(data);
+        setMessages(data as Array<any>);
+      };
       getMessages();
     }
-  }, [userId]);
+  }, []);
 
   useEffect(() => {
-    if (messages.length > initialLength) {
-      insertMessages(messages[messages.length - 1]);
-    }
     const messageDeleteOrigin = supabase
       .from(`interaction:origin=eq.${userId}`)
       .on('DELETE', payload => {
+        console.log(payload);
+        console.log("messages", messages);
         const newMessages = messages.filter(
           message => message.id !== payload.old.id
         );
@@ -103,6 +109,8 @@ export function useMessages(userId: string, matchId: string) {
     const messageDeleteDestination = supabase
       .from(`interaction:destination=eq.${userId}`)
       .on('DELETE', payload => {
+        console.log("payload", payload);
+        console.log("messages", messages);
         const newMessages = messages.filter(
           message => message.id !== payload.old.id
         );
@@ -111,44 +119,14 @@ export function useMessages(userId: string, matchId: string) {
       .subscribe();
 
     const messageInsert = supabase
-      .from(`userNotifiedMessage:id=eq.${userId}`)
-      .on('UPDATE', payload => {
-        getLastMessage();
+      .from(`interaction`)
+      .on('INSERT', payload => {
+        if (payload.new.destination === userId && payload.new.origin === matchId) {
+          setMessages([...messages, payload.new]);
+        }
       })
       .subscribe();
   }, [messages]);
-
-  const insertMessages = async (mess: any) => {
-    const { data, error } = await supabase.from('interaction').insert([
-      {
-        origin: supabase.auth.user()?.id as string,
-        destination: mess.destination,
-        message: mess.message,
-      },
-    ]);
-  };
-
-  const getMessages = async () => {
-    const { data, error } = await supabase.rpc('f_getmessages', {
-      userid: userId,
-      matchid: matchId,
-    });
-    if (data) {
-      setInitialLength(data?.length);
-    }
-    console.log(data);
-    setMessages(data as Array<any>);
-  };
-
-  const getLastMessage = async () => {
-    const { data, error } = await supabase.rpc('f_getlastmessage', {
-      userid: userId,
-      matchid: matchId,
-    });
-    const old = [...messages];
-    old.push(data);
-    setMessages(old);
-  };
 
   return [messages, setMessages];
 }
