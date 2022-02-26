@@ -7,7 +7,6 @@ export default function Login() {
 
   function keyListener(e: KeyboardEvent) {
     if (e.key === 'Enter') {
-      console.log(email);
       const btn = document.getElementsByClassName('btn')[0];
       btn.classList.add('btn-hover');
       setTimeout(() => {

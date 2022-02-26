@@ -1,8 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './MessageInput.css';
 import classNames from 'classnames';
+import { supabase } from './setupSupabase';
+import { v4 as uuidv4 } from 'uuid';
 
-export default function MessageInput() {
+export default function MessageInput({
+  setMessages,
+  messages,
+  matchId,
+}: {
+  setMessages: Function;
+  messages: Array<any>;
+  matchId: string;
+}) {
   const [inputValue, setInputValue] = useState('');
   const [inputFocused, setInputFocused] = useState(false);
 
@@ -14,9 +24,31 @@ export default function MessageInput() {
 
   const resetInputValue = () => setInputValue('');
 
+  async function handleButton() {
+    const id = uuidv4();
+    setMessages([
+      ...messages,
+      {
+        id: id,
+        origin: supabase.auth.user()?.id as string,
+        destination: matchId,
+        message: inputValue,
+      },
+    ])
+    const { data, error } = await supabase.from('interaction').insert([
+      {
+        id: id,
+        origin: supabase.auth.user()?.id as string,
+        destination: matchId,
+        message: inputValue,
+      },
+    ]);
+    resetInputValue();
+  }
+
   const handleKeyPress: React.KeyboardEventHandler<HTMLInputElement> = e => {
     if (e.key === 'Enter') {
-      resetInputValue();
+      handleButton();
     }
   };
 
@@ -31,7 +63,7 @@ export default function MessageInput() {
         onKeyPress={handleKeyPress}
         onChange={e => setInputValue(e.target.value)}
       />
-      <button onClick={resetInputValue} className="button-send">
+      <button onClick={handleButton} className="button-send">
         Send
       </button>
     </div>

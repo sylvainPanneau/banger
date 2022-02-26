@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import MessagesApp from './MessagesApp';
 
 import DamnLookinFineProfilePic from './images/prunot.jpeg';
 
 type CardProps = {
   mode: string;
+  matches: Array<any>;
 };
 
-export default function Card({ mode }: CardProps) {
+export default function Card({
+  mode,
+  matches,
+}: CardProps) {
   const animation = { animation: 'inAnimation 250ms ease-in' };
 
   return (
@@ -24,11 +28,18 @@ export default function Card({ mode }: CardProps) {
               <div className="card-name">Prunot</div>
               <div className="card-age">52</div>
             </div>
-            <div className="card-desc">Un bon gars finalement, je l'ai un peu vite jugé...</div>
+            <div className="card-desc">
+              Un bon gars finalement, je l'ai un peu vite jugé...
+            </div>
           </div>
         </div>
       )}
-      {mode === 'message' && <MessagesApp animation={animation} />}
+      {mode === 'message' && (
+        <MessagesApp
+          animation={animation}
+          matches={matches}
+        />
+      )}
     </div>
   );
 }
