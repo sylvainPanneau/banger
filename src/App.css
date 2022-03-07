@@ -84,6 +84,11 @@ body {
   height: 100%;
   object-fit: cover;
   border-radius: 5px;
+  /* make images stack */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
 
 /* ----------CARD INFO NEW VERSION ---------------*/
@@ -91,12 +96,16 @@ body {
   position : absolute;
   bottom: 0;
   left : 0;
+  z-index: -1;
   display : flex;
   flex-direction : column;
+  align-items : flex-start;
   gap : 10px;
   padding : 6%;
   color : rgb(204, 204, 204);
   font-family: 'Roboto', sans-serif;
+  /* width must fit the size of the parent */
+  width : 90%;
 }
 
 .card-info-main{
@@ -104,7 +113,7 @@ body {
   flex-direction : row;
   justify-content : flex-start;
   gap : 10px;
-  font-size: 2em;
+  font-size: 1.8em;
 }
 
 .card-age{
@@ -113,7 +122,10 @@ body {
 }
 
 .card-desc{
-  font-size: 1.1em;
+  font-size: 1em;
+  overflow : hidden;
+  text-overflow : ellipsis;
+  white-space : nowrap;
 }
 
 /* ------------------NAVBAR--------------------- */
@@ -331,6 +343,7 @@ body {
 
 .message-other {
   display: flex;
+  width: 60%;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
@@ -342,7 +355,6 @@ body {
 
 .message-other > .message-text {
   color: rgb(114, 114, 114);
-  font-size: 0.8em;
   /* roboto */
   /* font-family: 'Roboto', sans-serif; */
 }
@@ -352,8 +364,7 @@ body {
   flex-direction: row;
   align-items: flex-end;
   justify-content: flex-end;
-  width: 95%;
-  /* padding: 5px; */
+  width: 100%;
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
   border-top-right-radius: 15px;
@@ -361,6 +372,7 @@ body {
 
 .message-me {
   display: flex;
+  width: 60%;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
@@ -368,13 +380,17 @@ body {
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
   border-top-right-radius: 15px;
+  margin-right: 0.4em;
 }
 
 .message-me > .message-text {
   color: rgb(227 227 227);
-  font-size: 0.8em;
   /* roboto */
   /* font-family: 'Roboto', sans-serif; */
+  margin: 0.7em;
+}
+
+.message-other > .message-text {
   margin: 0.7em;
 }
 
@@ -443,7 +459,7 @@ body {
 .messages-input > * {
   border: none;
   /* font */
-  font-size: 0.8em;
+  font-size: 0.7em;
   font-weight: lighter;
   color : rgb(104, 104, 104);
   /* roboto */

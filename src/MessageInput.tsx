@@ -26,24 +26,29 @@ export default function MessageInput({
 
   async function handleButton() {
     const id = uuidv4();
-    setMessages([
-      ...messages,
-      {
-        id: id,
-        origin: supabase.auth.user()?.id as string,
-        destination: matchId,
-        message: inputValue,
-      },
-    ])
-    const { data, error } = await supabase.from('interaction').insert([
-      {
-        id: id,
-        origin: supabase.auth.user()?.id as string,
-        destination: matchId,
-        message: inputValue,
-      },
-    ]);
-    resetInputValue();
+    if (inputValue.length > 0) {
+      setMessages([
+        ...messages,
+        {
+          id: id,
+          origin: supabase.auth.user()?.id as string,
+          destination: matchId,
+          message: inputValue,
+        },
+      ])
+    }
+    if (inputValue.length > 0) {
+      const { data, error } = await supabase.from('interaction').insert([
+        {
+          id: id,
+          origin: supabase.auth.user()?.id as string,
+          destination: matchId,
+          message: inputValue,
+        },
+      ]);
+      resetInputValue();
+    }
+
   }
 
   const handleKeyPress: React.KeyboardEventHandler<HTMLInputElement> = e => {
